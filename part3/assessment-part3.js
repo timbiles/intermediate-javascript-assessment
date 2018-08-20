@@ -14,7 +14,11 @@
 
 // CODE HERE...
 
+const callBinding = (magicAnimals, updateAnimal, id) => {
+  let find = magicAnimals.filter(e => e.id === id)[0];
 
+  return updateAnimal.call(find, 'Trogdor');
+};
 
 // *************
 // * PROBLEM 2 *
@@ -29,7 +33,12 @@
 
 // CODE HERE...
 
+const applyBinding = (magicAnimals, updateAnimal, id) => {
+    let find = magicAnimals.filter(e => e.id === id)[0];
 
+  return updateAnimal.apply(find, ['being majestic', 'eating rainbows']);
+    
+}
 
 // *************
 // * PROBLEM 3 *
@@ -49,7 +58,9 @@ var foo;
 
 // CODE HERE...
 
-
+const promiseMe = ($q) => {
+    
+}
 
 // *************
 // * PROBLEM 4 *

@@ -34,20 +34,23 @@
 // In the second .then function you use, assign the third user object
 // to the variable 'thirdUser' (previously declared) and then return the tenth user object.
 
-var firstUser = 'don\'t touch this string!';
-var thirdUser = 'don\'t touch this string, either!';
+var firstUser = "don't touch this string!";
+var thirdUser = "don't touch this string, either!";
 
 function noWeakLink() {
-
   return $http({
     method: 'GET',
     url: '/api/users'
   })
-  // CODE HERE...
-
+    .then(res => {
+      res.data[0] = firstUser;
+      return res;
+    })
+    .then(res => {
+      res.data[2] = thirdUser;
+      return res.data[9];
+    });
 }
-
-
 
 // *************
 // * PROBLEM 2 *
@@ -68,14 +71,13 @@ function noWeakLink() {
 
 var elephant = {
   name: 'Horton'
-}
+};
 function large() {
-
-  return 'My name is ' + this.name + ' and I am very heavy!'
+  return 'My name is ' + this.name + ' and I am very heavy!';
 }
 // CODE HERE...
 
-
+const boundToElephant = large.bind(elephant);
 
 // *************
 // * PROBLEM 3 *
@@ -89,7 +91,9 @@ function large() {
 
 // CODE HERE...
 
-
+const deathStar = (capacity, crew) => {
+  return capacity.bind(crew);
+};
 
 // *************
 // * PROBLEM 4 *
@@ -104,7 +108,11 @@ function large() {
 
 // CODE HERE...
 
-
+const accountingOffice = assets => {
+  return function(liabilities) {
+    return assets + liabilities;
+  };
+};
 
 // *************
 // * PROBLEM 5 *
@@ -129,7 +137,14 @@ function large() {
 
 // CODE HERE...
 
+const forgetter = name => {
+  let arr = [];
 
+  return function rememberall(item) {
+    arr.push(item);
+    return { name, remember: arr };
+  };
+};
 
 // *************
 // * PROBLEM 6 *
@@ -156,3 +171,29 @@ function large() {
 // NOTE: Neither hunger nor danger should be able to exceed 100 or drop below 0.
 
 // CODE HERE...
+
+const frodo = (startingHungerValue, startingDangerValue) => {
+  let hunger = startingHungerValue;
+  let danger = startingDangerValue;
+
+  const max = num => num < 0 ? 0 : (num > 100 ? 100 : num);
+
+  return {
+    dinnerOverFire: function() {
+      hunger -= 25;
+      danger += 40;
+      return {
+        hunger: max(hunger),
+        danger: max(danger)
+      };
+    },
+    hidingInBush: function() {
+      hunger += 35;
+      danger -= 20;
+      return {
+        hunger: max(hunger),
+        danger: max(danger)
+      };
+    }
+  };
+};
